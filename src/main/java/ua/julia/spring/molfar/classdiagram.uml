@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="107.0" y="454.0">ua.julia.spring.molfar.view.ConsoleView</node>
+    <node x="696.2765151515151" y="233.0">ua.julia.spring.molfar.repository.BookRepository</node>
+    <node x="746.526515151515" y="432.0">ua.julia.spring.molfar.repository.MongoBookRepository</node>
+    <node x="509.2765151515151" y="233.0">ua.julia.spring.molfar.domain.TableClass</node>
+    <node x="0.0" y="454.0">ua.julia.spring.molfar.view.WebView</node>
+    <node x="105.27651515151513" y="255.0">ua.julia.spring.molfar.view.Viewable</node>
+    <node x="975.7765151515151" y="432.0">ua.julia.spring.molfar.repository.MongoQuestionRepository</node>
+    <node x="555.2007575757576" y="454.0">ua.julia.spring.molfar.controler.Model</node>
+    <node x="212.27651515151513" y="167.0">ua.julia.spring.molfar.domain.Book</node>
+    <node x="0.0" y="550.0">ua.julia.spring.molfar.domain.Question</node>
+    <node x="917.2765151515151" y="233.0">ua.julia.spring.molfar.repository.QuestionRepository</node>
+    <node x="279.0" y="0.0">ua.julia.spring.molfar.domain.Clazz</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ua.julia.spring.molfar.repository.MongoBookRepository" target="ua.julia.spring.molfar.repository.BookRepository">
+      <point x="0.0" y="-36.5" />
+      <point x="50.24999999999994" y="36.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.controler.Model" target="ua.julia.spring.molfar.view.Viewable">
+      <point x="-29.16666666666663" y="-14.5" />
+      <point x="561.034090909091" y="412.0" />
+      <point x="177.77651515151513" y="412.0" />
+      <point x="29.0" y="14.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.view.ConsoleView" target="ua.julia.spring.molfar.view.Viewable">
+      <point x="0.0" y="-14.5" />
+      <point x="163.0" y="412.0" />
+      <point x="148.77651515151513" y="412.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.controler.Model" target="ua.julia.spring.molfar.domain.Book">
+      <point x="-17.5" y="-14.5" />
+      <point x="572.7007575757576" y="402.0" />
+      <point x="350.7765151515151" y="402.0" />
+      <point x="0.0" y="102.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.controler.Model" target="ua.julia.spring.molfar.repository.BookRepository">
+      <point x="17.5" y="-14.5" />
+      <point x="607.7007575757576" y="402.0" />
+      <point x="746.5265151515151" y="402.0" />
+      <point x="-50.25" y="36.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.domain.Book" target="ua.julia.spring.molfar.domain.Clazz">
+      <point x="-69.25" y="-102.5" />
+      <point x="281.5265151515151" y="142.0" />
+      <point x="322.0" y="142.0" />
+      <point x="-43.0" y="58.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.repository.MongoQuestionRepository" target="ua.julia.spring.molfar.repository.QuestionRepository">
+      <point x="0.0" y="-36.5" />
+      <point x="58.5" y="36.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.view.WebView" target="ua.julia.spring.molfar.view.Viewable">
+      <point x="0.0" y="-14.5" />
+      <point x="43.5" y="412.0" />
+      <point x="119.77651515151513" y="412.0" />
+      <point x="-29.0" y="14.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.controler.Model" target="ua.julia.spring.molfar.domain.TableClass">
+      <point x="-5.833333333333314" y="-14.5" />
+      <point x="584.3674242424242" y="392.0" />
+      <point x="551.0265151515151" y="392.0" />
+      <point x="-41.75" y="36.5" />
+    </edge>
+    <edge source="ua.julia.spring.molfar.controler.Model" target="ua.julia.spring.molfar.repository.QuestionRepository">
+      <point x="29.166666666666686" y="-14.5" />
+      <point x="619.3674242424242" y="412.0" />
+      <point x="975.7765151515151" y="412.0" />
+      <point x="-58.5" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="295.0" y="301.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

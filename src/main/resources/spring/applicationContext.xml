@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Включаем контекстные аннотации типа @Service, @Controller, @Repository... -->
+    <context:annotation-config/>
+    <mvc:default-servlet-handler/>
+
+    <!--
+    Указываем Springу пакет, в котором он будет искать классы,
+    помеченные аннотациями @Service, @Repository, и создавать их бины, но исключать он будет @Controller,
+    т.к. эти классы нам нужны будут в другом месте.
+    -->
+    <context:component-scan base-package="ua.julia.spring.molfar">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--
+    Загружает properties файл в конфигурацию Spring (т.е. сюда).
+    Переменные из файла можно будет использовать как ${mongo.host} (пример см. ниже)
+    -->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <!-- Создаем бин 'mongo' -->
+    <mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}"/>
+
+    <!--
+    Создаем бин 'mongoDbFactory'.
+    Если MongoDB не требует авторизации, то поля username, password можно убрать
+    -->
+    <mongo:db-factory
+            id="mongoDbFactory"
+            dbname="${mongo.db}"
+            mongo-ref="mongo"/>
+            <!--username="${mongo.username}"-->
+            <!--password="${mongo.password}"-->
+
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+
+    <!-- Swagger -->
+    <!-- the path where the swagger.properties file can be found-->
+    <context:property-placeholder location="classpath:config/swagger.properties">
+
+        <!-- creates a controller at /api-docs from this uri, which serves swagger's raw documentation in JSON format. -->
+        <bean id="documentationConfig" class="com.mangofactory.swagger.configuration.DocumentationConfig"></bean>
+    </context:property-placeholder>
+
+</beans>
