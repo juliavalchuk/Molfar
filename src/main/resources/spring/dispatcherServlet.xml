@@ -12,6 +12,7 @@
 
     <!-- Включаем MVC аннотации -->
     <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
 
     <!--
     Использование MVC Resources
@@ -62,4 +63,11 @@
             <property name="paramName" value="lang" />
         </bean>
     </mvc:interceptors>
+
+    <!-- Swagger -->
+    <!-- the path where the swagger.properties file can be found-->
+    <context:property-placeholder location="classpath:config/swagger.properties"/>
+
+        <!-- creates a controller at /api-docs from this uri, which serves swagger's raw documentation in JSON format. -->
+        <bean id="documentationConfig" class="com.mangofactory.swagger.configuration.DocumentationConfig"></bean>
 </beans>
