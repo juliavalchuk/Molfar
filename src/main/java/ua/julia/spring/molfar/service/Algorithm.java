@@ -1,7 +1,6 @@
 package ua.julia.spring.molfar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ua.julia.spring.molfar.domain.Book;
 import ua.julia.spring.molfar.domain.Clazz;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 
 */
 
-@Scope("session")
 @Service
 public class Algorithm {
 
