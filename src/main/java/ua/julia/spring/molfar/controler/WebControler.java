@@ -47,6 +47,7 @@ public class WebControler {
     @RequestMapping(value = {"/question"}, method = RequestMethod.GET)
     public @ResponseBody String questions(Locale locale){
         System.out.println(locale.getLanguage());
+        algorithm.setInitialValue();
         Question question = algorithm.getQuestion();
         String langQuestion = questionService.getSQuestionByLocal(question, lang);
         return langQuestion;

@@ -54,6 +54,7 @@ public class Algorithm {
 
     protected void getQuestions(){
         List<Question> questions = questionService.getAllQuestions();
+        System.out.println("Q: " + questions.size());
         if(mapClasses != null){
             mapClasses.clear();
         }
@@ -79,6 +80,7 @@ public class Algorithm {
 
     public void setInitialValue(){
 
+        System.out.println("start ---------------");
         getBooks();
 
         setPAForBooks();
@@ -92,10 +94,14 @@ public class Algorithm {
         currQuestion = 1;
         k = 0;
 
+        System.out.println("finish ---------------");
+
     }
 
     protected String getRNDClassName(){
+        System.out.println("!!!!!!!!!!!!!!!!!!!!");
         int n = mapClasses.size();
+        System.out.println(n);
 
         return mapClasses.keySet().toArray(new String[n])[(int) (Math.random() * n)];
     }

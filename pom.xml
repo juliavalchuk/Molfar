@@ -2,17 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Molfar</groupId>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ua.julia.spring</groupId>
     <artifactId>Molfar</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>Molfar Maven Webapp</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.spring>4.0.6.RELEASE</version.spring>
         <version.spring.mongodb>1.5.0.RELEASE</version.spring.mongodb>
         <version.jackson>1.9.13</version.jackson>
+
+        <maven.compiler.plugin>2.3.2</maven.compiler.plugin>
+        <maven.failsafe.plugin>2.4.3-alpha-1</maven.failsafe.plugin>
     </properties>
 
     <dependencies>
@@ -145,56 +151,134 @@
         </repository>
     </repositories>
 
-    <build>
-        <plugins>
+    <!-- PROFILES -->
+    <profiles>
+        <profile>
+            <id>local-server</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>server</name>
+                    <value>local</value>
+                </property>
+            </activation>
+            <properties>
+                <server.url>http://localhost:8080/manager/text</server.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>openshift</id>
+            <activation>
+                <property>
+                    <name>server</name>
+                    <value>remote</value>
+                </property>
+            </activation>
+            <properties>
+                <server.url>http://http://molfar-rest4app.rhcloud.com/manager/text</server.url>
+            </properties>
+            <build>
+            <finalName>${project.artifactId}</finalName>
+            <pluginManagement>
+            <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ua.julia.spring.molfar.controler.MyCounter</mainClass>
-                                </transformer>
-                            </transformers>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.1.1</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
+                    <outputDirectory>webapps</outputDirectory>
+                    <!--  <warName>test</warName>  -->
+                    <warName>ROOT</warName>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            </plugins>
+            </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 
-        </plugins>
-    </build>
+    <!--<build>-->
+        <!--<finalName>${project.artifactId}</finalName>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<version>${maven.compiler.plugin}</version>-->
+                <!--<configuration>-->
+                    <!--<source>${java.version}</source>-->
+                    <!--<target>${java.version}</target>-->
+                    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
+                <!--</configuration>-->
+
+            <!--</plugin>-->
+            <!--<plugin>-->
+                <!--<groupId>com.worldline.maven</groupId>-->
+                <!--<artifactId>openshift-maven-plugin</artifactId>-->
+                <!--<version>0.1-SNAPSHOT</version>-->
+                <!--<configuration>-->
+                    <!--<password>${openshift.password}</password>-->
+                    <!--<domain>rest4app</domain>-->
+                    <!--<application>molfar</application>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+
+    <!--</build>-->
+
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-shade-plugin</artifactId>-->
+                <!--<version>2.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>shade</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<createDependencyReducedPom>false</createDependencyReducedPom>-->
+                            <!--<transformers>-->
+                                <!--<transformer-->
+                                        <!--implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+                                    <!--<mainClass>ua.julia.spring.molfar.controler.MyCounter</mainClass>-->
+                                <!--</transformer>-->
+                            <!--</transformers>-->
+                            <!--<filters>-->
+                                <!--<filter>-->
+                                    <!--<artifact>*:*</artifact>-->
+                                    <!--<excludes>-->
+                                        <!--<exclude>META-INF/*.SF</exclude>-->
+                                        <!--<exclude>META-INF/*.DSA</exclude>-->
+                                        <!--<exclude>META-INF/*.RSA</exclude>-->
+                                    <!--</excludes>-->
+                                <!--</filter>-->
+                            <!--</filters>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-war-plugin</artifactId>-->
+                <!--<version>2.4</version>-->
+                <!--<configuration>-->
+                    <!--<outputDirectory>webapps</outputDirectory>-->
+                    <!--<warName>ROOT</warName>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+        <!--</plugins>-->
+    <!--</build>-->
 
 
 </project>
