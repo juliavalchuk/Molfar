@@ -17,7 +17,7 @@
         <version.spring.mongodb>1.5.0.RELEASE</version.spring.mongodb>
         <version.jackson>1.9.13</version.jackson>
 
-        <maven.compiler.plugin>2.3.2</maven.compiler.plugin>
+        <maven.compiler.plugin>3.1</maven.compiler.plugin>
         <maven.failsafe.plugin>2.4.3-alpha-1</maven.failsafe.plugin>
     </properties>
 
@@ -195,10 +195,10 @@
 
                         <plugin>
                             <artifactId>maven-compiler-plugin</artifactId>
-                            <version>3.1</version>
+                            <version>${maven.compiler.plugin}</version>
                             <configuration>
-                                <source>1.7</source>
-                                <target>1.7</target>
+                                <source>1.8</source>
+                                <target>1.8</target>
                             </configuration>
                         </plugin>
 
